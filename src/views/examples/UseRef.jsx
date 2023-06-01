@@ -2,6 +2,15 @@ import { useEffect, useRef, useState } from 'react'
 import PageTitle from '../../components/layout/PageTitle'
 import SectionTitle from '../../components/layout/SectionTitle'
 
+const merge = function(s1, s2) {
+    // o spread operator (...) transforma uma string em um array de caracteres, ele tambem é usado para conctatenar arrays  
+    // o map percorre o array e retorna um novo array com os caracteres concatenados
+    // o join junta todos os caracteres em uma string novamente
+    return [...s1].map(function(e, i) {
+        return `${e}${s2[i] || ""}` // se o s2[i] for undefined, retorna uma string vazia, para nao dar erro e retornar undefined
+    }).join("")
+}
+
 const UseRef = (props) => {
 
     const [value1, setValue1] = useState("")
@@ -13,7 +22,14 @@ const UseRef = (props) => {
 
     useEffect(() => {
         count.current = count.current + 1
-    }, [value1, value2])
+        myInput2.current.focus()
+    }, [value1])
+
+    useEffect(() => {
+        count.current++
+        myInput1.current.focus()
+    }, [value2])
+
 
     return (
         <div className="UseRef">
@@ -26,7 +42,7 @@ const UseRef = (props) => {
             <div className="center">
                 <div>
                     <span className="text">Valor:</span>
-                    <span className="text">{value1} [</span>
+                    <span className="text">{merge(value1, value2)} [</span>
                     <span className="text red">{count.current}</span>
                     <span className="text">]</span>
                 </div>
@@ -36,10 +52,6 @@ const UseRef = (props) => {
 
             <SectionTitle title="Exercicio #02" />
             <div className="center">
-                <div>
-                    <span className="text">Valor:</span>
-                    <span className="text">{value2}</span>
-                </div>
                 <input type="text" className="input" ref={myInput2} value={value2} onChange={e => setValue2(e.target.value)}/>
             </div>
         </div>
