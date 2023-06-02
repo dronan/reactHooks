@@ -2,6 +2,18 @@ import { useEffect, useRef, useState } from 'react'
 import PageTitle from '../../components/layout/PageTitle'
 import SectionTitle from '../../components/layout/SectionTitle'
 
+
+
+/** 
+ * O useref é usado para guardar uma referencia de um elemento, 
+ * como se fosse um ponteiro para um elemento.
+ * 
+ * Ele é usado para acessar elementos do DOM, como um input por exemplo.
+ * 
+ * Não refaz a renderização de componentes, como o useState faz, mas ele pode ser usado 
+ * para guardar um valor, que nao vai ser renderizado na tela
+**/
+
 const merge = function(s1, s2) {
     // o spread operator (...) transforma uma string em um array de caracteres, ele tambem é usado para conctatenar arrays  
     // o map percorre o array e retorna um novo array com os caracteres concatenados
