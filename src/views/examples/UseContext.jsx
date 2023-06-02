@@ -1,8 +1,9 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import PageTitle from '../../components/layout/PageTitle'
 
 import DataContext from '../../data/DataContext'
 import SectionTitle from '../../components/layout/SectionTitle'
+import { AppContext } from '../../data/Store'
 
 /* 
     * usado para compartilhar dados entre componentes sem a necessidade de passar props.
@@ -22,12 +23,20 @@ const UseContext = (props) => {
 
     const {state, setState} = useContext(DataContext)
 
-    function setNumber(n) {
+    function addNumber(n) {
         setState({
             ...state,
             number: n
         })
     }
+
+    const { number, text, setNumber, setText } = useContext(AppContext)
+
+    useEffect(function() {
+        if(number > 1250) {
+            setText('Eita!!!')
+        }
+    },[number])
 
     return (
         <div className="UseContext">
@@ -42,11 +51,22 @@ const UseContext = (props) => {
                 <span className="text">{state.text}</span>
 
                 <div>
-                    <button className="btn" onClick={() => setNumber(state.number - 1)}>-1</button>
-                    <button className="btn" onClick={() => setNumber(state.number + 1)}>+1</button>
+                    <button className="btn" onClick={() => addNumber(state.number - 1)}>-1</button>
+                    <button className="btn" onClick={() => addNumber(state.number + 1)}>+1</button>
                 </div>
 
             </div>
+
+            <SectionTitle title="Exercício #02" />
+            <div className="center">
+                <span className="text">{text}</span>
+                <span className="text">{number}</span>
+                <div>
+                    <button className="btn" onClick={ _ => setNumber( number - 1)}>-1</button>
+                    <button className="btn" onClick={ _ => setNumber( number + 1)}>+1</button>
+                </div>
+            </div>
+
         </div>
     )
 }
