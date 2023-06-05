@@ -11,8 +11,8 @@ const UseRef = (props) => {
 
     const response = useFetch('http://files.cod3r.com.br/curso-react/estados.json')
 
-    function statesBR() {
-        return response.data.map(state => <li key={state.sigla}>{state.sigla} - {state.nome} </li>)
+    function statesBR(states) {
+        return states.map(state => <li key={state.sigla}>{state.sigla} - {state.nome} </li>)
     }
 
     return (
@@ -34,7 +34,7 @@ const UseRef = (props) => {
             <SectionTitle title="Exercício #02" />
             <div className="center States">
                 <ul>
-                    {!response.loading ? statesBR(response) : false}
+                    {!response.loading ? statesBR(response.data) : false}
                 </ul>
             </div>
 
